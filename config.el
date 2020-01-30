@@ -49,19 +49,22 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
-;(use-package! liberime-config
-; :init
-; (add-hook 'liberime-after-start-hook
-;            (lambda ()
-;              (liberime-select-schema "luna_pinyin_simp")))
-;  )
 
 
-;(use-package pyim
-;  :after liberime-config
-;  :config
-;  (setq default-input-method "pyim")
-;  (setq pyim-default-scheme 'rime)
-;  (setq pyim-page-length 9)
-;  (setq pyim-page-tooltip 'posframe)
-;)
+;;rime
+(use-package! liberime-config
+ :init
+ (add-hook 'liberime-after-start-hook
+            (lambda ()
+              (liberime-select-schema "luna_pinyin_simp")))
+  )
+
+;;pyim
+(use-package pyim
+  :after liberime-config
+  :config
+  (setq default-input-method "pyim")
+  (setq pyim-default-scheme 'rime)
+  (setq pyim-page-length 9)
+  (setq pyim-page-tooltip 'posframe)
+)

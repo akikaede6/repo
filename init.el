@@ -15,8 +15,8 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
-       ;;chinese
-       ;;japanese
+       chinese
+       japanese
 
        :completion
        company           ; the ultimate code completion backend
