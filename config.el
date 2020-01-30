@@ -51,7 +51,7 @@
 
 
 
-;;rime
+;;rime 词库
 (use-package! liberime-config
  :init
  (add-hook 'liberime-after-start-hook
@@ -68,3 +68,13 @@
   (setq pyim-page-length 9)
   (setq pyim-page-tooltip 'posframe)
 )
+
+;;org-protocol
+(add-to-list 'org-modules 'org-protocol t)
+(use-package! org-protocol
+  :config
+  (add-to-list 'org-capture-templates
+               '("w" "org-protocol" entry (file "~/projects/org/refile.org")
+                 "* TODO Review %a\n%U\n%:initial\n" :immediate-finish t))
+  (setq org-protocol-default-template-key "w")
+  )
