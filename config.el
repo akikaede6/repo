@@ -78,3 +78,38 @@
                  "* TODO Review %a\n%U\n%:initial\n" :immediate-finish t))
   (setq org-protocol-default-template-key "w")
   )
+
+;;EAF
+(use-package eaf
+  :load-path "~/projects/github/emacs-application-framework"
+  :custom
+  (eaf-find-alternate-file-in-dired t)
+  :config
+  (eaf-bind-key scroll_up "RET" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down_page "DEL" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
+  (eaf-bind-key take_photo "p" eaf-camera-keybinding))
+
+;;EAF proxy
+(setq eaf-proxy-type "http")
+(setq eaf-proxy-host "127.0.0.1")
+(setq eaf-proxy-port "1092")
+(setq eaf-proxy-type "socks5")
+
+;;awesome-tab
+(use-package awesome-tab
+  :load-path "~/projects/github/awesome-tab"
+  :config
+  (awesome-tab-mode t)
+)
+
+;;; :tools magit
+(setq magit-repository-directories '(("~/projects" . 2))
+      magit-save-repository-buffers nil
+      ;; Don't restore the wconf after quitting magit
+      magit-inhibit-save-previous-winconf t
+      transient-values '((magit-commit "--gpg-sign=26B731327F3E3288")
+                         (magit-rebase "--autosquash" "--gpg-sign=26B731327F3E3288")
+                         (magit-pull "--rebase" "--gpg-sign=26B731327F3E3288"))
+      )
