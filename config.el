@@ -101,6 +101,7 @@
 (use-package awesome-tab
   :load-path "~/projects/github/awesome-tab"
   :config
+  :init
   (awesome-tab-mode t)
 )
 
