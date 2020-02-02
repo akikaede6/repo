@@ -92,6 +92,7 @@
   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
   (add-to-list 'evil-emacs-state-modes 'eaf-mode)
 
+
 ;;EAF proxy
 (setq eaf-proxy-type "http")
 (setq eaf-proxy-host "127.0.0.1")
@@ -126,4 +127,11 @@
 ;;alert
 (use-package alert
   :load-path "~/projects/github/alert"
+  )
+
+;;snails
+(use-package! snails
+  :demand
+  :config
+  (add-to-list 'evil-emacs-state-modes 'snails-mode)
   )

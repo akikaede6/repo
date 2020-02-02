@@ -51,13 +51,20 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-<<<<<<< HEAD
 ;rime
-=======
->>>>>>> cb897da... add pyim and rime
 (package! liberime-config
   :recipe
   (
    :host github
    :repo "merrickluo/liberime"
    :files ("CMakeLists.txt" "Makefile" "src" "liberime-config.el")))
+
+;;snails
+(package! snails
+  :recipe
+  (
+   :host github
+   :repo "manateelazycat/snails"
+   :no-byte-compile t
+   :files ("*")
+   ))
