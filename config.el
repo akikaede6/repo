@@ -101,11 +101,17 @@
 (use-package awesome-tab
   :load-path "~/projects/github/awesome-tab"
   :config
-  :init
   (awesome-tab-mode t)
-)
+  )
 
-;;; :tools magit
+;;keybinds
+(map! :map awesome-tab-mode
+      :n "[ j" #'awesome-tab-forward
+      :n "[ k" #'awesome-tab-backward
+      :n "[ a" #'awesome-tab-select-beg-tab
+      :n "[ e" #'awesome-tab-select-end-tab)
+
+;;tools magit
 (setq magit-repository-directories '(("~/projects" . 2))
       magit-save-repository-buffers nil
       ;; Don't restore the wconf after quitting magit
@@ -114,3 +120,8 @@
                          (magit-rebase "--autosquash" "--gpg-sign=26B731327F3E3288")
                          (magit-pull "--rebase" "--gpg-sign=26B731327F3E3288"))
       )
+
+;;alert
+(use-package alert
+  :load-path "~/projects/github/alert"
+  )
