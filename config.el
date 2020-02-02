@@ -90,6 +90,7 @@
   (eaf-bind-key scroll_up "C-n" eaf-pdf-viewer-keybinding)
   (eaf-bind-key scroll_down "C-p" eaf-pdf-viewer-keybinding)
   (eaf-bind-key take_photo "p" eaf-camera-keybinding))
+  (add-to-list 'evil-emacs-state-modes 'eaf-mode)
 
 ;;EAF proxy
 (setq eaf-proxy-type "http")
@@ -106,6 +107,7 @@
 
 ;;keybinds
 (map! :map awesome-tab-mode
+      :leader
       :n "[ j" #'awesome-tab-forward
       :n "[ k" #'awesome-tab-backward
       :n "[ a" #'awesome-tab-select-beg-tab
