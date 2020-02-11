@@ -1,0 +1,63 @@
+#+TITLE: scheme
+* chapter 1
+** atom
+atom can be a character, characters, digits, special characters but '(' ')'
+** list
+list should be enclosed bu parentheses
+** S-expressions
+S-expression contains atoms, list, etc
+S-expression can be null
+** car
+(car l)
+car is the first S-expression of a list
+car is defined for non-empty lists
+** cdr
+(cdr l)
+cdr is another S-expression expect car of a list
+cdr is defined for non-empty lists
+cdr should be a list while car can be a atom
+** cons
+(cons a l)
+cons adds S-expression to the front of a list
+cons can take any lists, l must be a list
+** ?
+*** null
+(null? l)
+if l is () can be written as (null? l)
+(quote()) is null list notation
+null? only defined for lists, l must be a list
+*** atom
+(atom? s)
+if s is atom can be written as (atom? s)
+s can be any S-expression
+*** eq
+(eq? a1 a2)
+a1 a2 should be non-numeric atoms
+*** lat
+(lat? l)
+if each S-expression is an atom, also can be null
+**** how to define
+(cond ...) ask questions
+(lambda ...) create a function
+(define ...) give it a name
+#+BEGIN_SRC
+(define lat?
+  (lambda (l)
+    (cond
+      ((null? l) #t)
+      ((atom? (car l)) (lat? (cdr l)))
+      (else #f))))
+#+END_SRC
+*** or
+(or ...)
+just like logic gate
+*** member
+(member? a lat)
+#+BEGIN_SRC
+(define member?
+  (lambda a lat
+    (cond
+      ((null? lat) #f)
+      (or((eq? a (car lat)) (member? a (cdr lat))))
+      (else #f))))
+#+END_SRC
