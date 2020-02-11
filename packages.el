@@ -68,3 +68,24 @@
    :no-byte-compile t
    :files ("*")
    ))
+
+;;posframe
+(package! posframe
+  :recipe
+  (
+   :host github
+   :repo "tumashu/posframe"))
+
+;;awesomeshell
+(package! awesome-tab
+  :recipe
+  (
+   :host github
+   :repo "manateelazycat/awesome-tab"))
+
+;;eaf
+(package! eaf
+  :recipe
+  (
+   :host github
+   :repo "manateelazycat/emacs-application-framework"))

@@ -135,3 +135,11 @@
   :config
   (add-to-list 'evil-emacs-state-modes 'snails-mode)
   )
+
+;;org-babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sql . t)))
+
+;;paredit.el
+(load! "lisp/paredit.el")
