@@ -33,10 +33,11 @@ s can be any S-expression
 *** eq
 (eq? a1 a2)
 a1 a2 should be non-numeric atoms
-*** lat
+* chapter 2
+** lat
 (lat? l)
 if each S-expression is an atom, also can be null
-**** how to define
+*** how to define
 (cond ...) ask questions
 (lambda ...) create a function
 (define ...) give it a name
@@ -48,10 +49,11 @@ if each S-expression is an atom, also can be null
       ((atom? (car l)) (lat? (cdr l)))
       (else #f))))
 #+END_SRC
-*** or
+** or
 (or ...)
 just like logic gate
-*** member
+(or a b) = (cond (a #f) (else b))
+** member
 (member? a lat)
 #+BEGIN_SRC
 (define member?
@@ -60,4 +62,520 @@ just like logic gate
       ((null? lat) #f)
       (or((eq? a (car lat)) (member? a (cdr lat))))
       (else #f))))
+#+END_SRC
+* chapter 3
+** rember
+(rember a lat)
+rember remove a member from a lat,only move the first atom
+#+BEGIN_SRC
+(define rember
+  (lambda (a lat)
+    (cond
+     ((null? lat) (quote ()))
+     ((eq? (car lat) a) (cdr lat))
+     (else (cons (car lat) (rember a (cdr lat)))))))
+#+END_SRC
+** firsts
+(firsts l)
+takes the first S-expression in every list that contained in one list
+#+BEGIN_SRC
+(define firsts
+  (lambda (l)
+    (cond
+     ((null? l) (quote ()))
+     (else (cons (car (car l)) (firsts (cdr l)))))))
+#+END_SRC
+** insertR
+(insertR new old lat)
+alternate old by new behind
+#+BEGIN_SRC
+(define insertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) (quote()))
+     (else (cond
+            ((eq? (car lat) old)
+             (cons old
+                   (cons new (cdr lat))))
+            (else (cons (car lat)
+                        (insertR new old (cdr lat)))))))))
+#+END_SRC
+** insertL
+(insertL new old lat)
+#+BEGIN_SRC
+(define insertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) (quote()))
+     (else (cond
+            ((eq? (car lat) old)
+             (cons new lat))
+            (else (cons (car lat)
+                        (insertL new old (cdr lat)))))))))
+#+END_SRC
+** subst
+(subst new old lat)
+#+BEGIN_SRC
+(define subst
+  (lambda (new old lat)
+    (cond
+     ((null? lat) (quote()))
+     (else (cond
+            ((eq? (car lat) old)
+             (cons new (cdr lat)))
+            (else (cons (car lat)
+                        (subst new old (cdr lat)))))))))
+#+END_SRC
+** subst2
+(subst2 new o1 o2 lat)
+#+BEGIN_SRC
+(define subst2
+  (lambda (new o1 o2 lat)
+    (cond
+     ((null? lat) (quote()))
+     (else (cond
+            (or ((eq? (car lat) o1)
+                 (eq? (car lat) o2))
+                (cons new (cdr lat)))
+            (else (cons (car lat)
+                        (subst2 new o1 o2 (cdr lat)))))))))
+#+END_SRC
+** multirember
+(multireber a lat)
+#+BEGIN_SRC
+(define multirember
+  (lambda (a lat)
+    (cond
+     ((null? lat) (quote ()))
+     (else (cond
+            (((eq? (car lat) a)) (multirember a (cdr lat)))
+            (else (cons (car lat)
+                        (multirember (cdr lat)))))))))
+#+END_SRC
+** multiinsertR
+(multiinsertR new old lat)
+#+BEGIN_SRC
+(define multiinsertR
+  (lambda (new old lat)
+    (cond
+     ((null? lat) (quote ()))
+     (else (cond
+            ((eq? (car lat) old)
+             (cons (car lat) (cons new (multiinsertR new old (cdr lat)))))  ;;(car lat also can be old)
+            (else (cons (car lat)
+                        (multiinsertR new old (cdr lat)))))))))
+#+END_SRC
+** multiinsertL
+(multiinsertL new old lat)
+#+BEGIN_SRC
+(define multiinsertL
+  (lambda (new old lat)
+    (cond
+     ((null? lat) (quote ()))
+     (else (cond
+            ((eq? (car lat) old)
+             (cons new (cons (car lat) (multiinsertL new old (cdr lat)))))  ;;(car lat also can be old)
+            (else (cons (car lat)
+                        (multiinsertL new old (cdr lat)))))))))
+#+END_SRC
+** multisubst
+(multisubst new old lat)
+#+BEGIN_SRC
+(define multisubst
+  (lambda (new old lat)
+    (cond
+     ((null? lat) (quote ()))
+     (else (cond
+            ((eq? (car lat) old)
+             (cons new (multisubst new old (cdr lat))))
+            (else (cons (car lat)
+                        (multisubst new old (cdr lat)))))))))
+#+END_SRC
+* chapter 4
+** add1
+(add1 n)
+#+BEGIN_SRC
+(define add1
+  (lambda (n)
+    (+ n 1)))
+#+END_SRC
+** sub1
+(sub1 n)
+#+BEGIN_SRC
+(define sub1
+  (lambda (n)
+    (- n 1)))
+#+END_SRC
+only consider nonnegative numbers
+** zero?
+(zero? n)
+** tips
+*** first
+lat and n the first commandment is
+(null? lat) and else
+(zero? n) and else
+*** second
+when use cdr test termination with null?
+when use sub1 test termination with zero?
+*** third
+when building +, always use 0 for the value of the terminating line
+when building *, always use 1 for the value of the terminating line
+when building cons, always consider () for the value of the terminating line
+** +
+(+ n m)
+#+BEGIN_SRC
+(define +
+  (lambda (n m))
+    (cond
+      ((zero? m) n)
+      (else (add1 (+ n (sub1 m))))))
+#+END_SRC
+** -
+(- n m)
+#+BEGIN_SRC
+(define -
+  (lambda (n m))
+    (cond
+      ((zero? m) n)
+      (else (sub1 (- n (sub1 m))))))
+#+END_SRC
+** tup
+tup is a list of numbers
+** addtup
+(addtup tup)
+#+BEGIN_SRC
+(define addtup
+  (lambda (tup)
+    (cond
+      ((null? tup) 0)
+      (else (+ (car tup) (addtup (cdr tup)))))))
+#+END_SRC
+** *
+(* n m)
+#+BEGIN_SRC
+(define *
+  (lambda (n m)
+    (cond
+      ((zero? m) 0)
+      (else (+ n (* n (sub1 m)))))))
+#+END_SRC
+
+** tup+
+(tup+ tup1 tup2)
+add the first number of tup1 and the first number of tup2 and so on
+#+BEGIN_SRC
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+     ((and (null? tup1) (null? tup2)) (quote ()))
+     (cons (+ (car tup1) (car tup2))
+           (tup+ (cdr tup1) (cdr tup2))))))
+#+END_SRC
+upgrade
+#+BEGIN_SRC
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+     ((null? tup1) tup2)
+     ((null? tup2) tup1)
+     (cons (+ (car tup1) (car tup2))
+           (tup+ (cdr tup1) (cdr tup2))))))
+#+END_SRC
+** >
+(> n m)
+#+BEGIN_SRC
+(define >
+  (lambda (n m)
+    (cond
+     ((zero? n) #f)
+     ((zero? m) #t)
+     (else (> (sub1 n) (sub1 m))))))
+#+END_SRC
+** <
+(< n m)
+#+BEGIN_SRC
+(define <
+  (lambda (n m)
+    (cond
+     ((zero? m) #f)
+     ((zero? n) #t)
+     (else (< (sub1 n) (sub1 m))))))
+#+END_SRC
+** =
+(= n m)
+#+BEGIN_SRC
+(define =
+  (lambda (n m)
+    (cond
+     ((zero? n) (zero? m))
+     ((zero? n) #f)
+     (else (= (sub1 n) (sub1 m))))))
+#+END_SRC
+#+BEGIN_SRC
+(define =
+  (lambda (n m)
+    (cond
+     ((and (> n m) (< n m)) #f)
+     (else #t)
+#+END_SRC
+** ^
+(^ n m)
+#+BEGIN_SRC
+(define ^
+  (lambda (n m)
+    (cond
+     ((zero? m) 1)
+     (else (* n (^ n (sub1 m)))))))
+#+END_SRC
+** /
+(/ n m)
+#+BEGIN_SRC
+(define /
+  (lambda (n m)
+    (cond
+     ((< n m) 0)
+     (else (add1 (/ (- n m) m))))))
+#+END_SRC
+** length
+(length lat)
+#+BEGIN_SRC
+(define length
+  (lambda (lat)
+    (cond
+     ((null? lat) 0)
+     (else (add1 (length (cdr lat)))))))
+#+END_SRC
+** pick
+(pick n lat)
+#+BEGIN_SRC
+(define pick
+  (lambda (n lat)
+    (cond
+     ((zero? (sub1 n)) (car lat))
+     (else (pick (sub1 n) (cdr lat))))))
+#+END_SRC
+** rempick
+(rempick n lat)
+#+BEGIN_SRC
+(define rempick
+  (lambda (n lat)
+    (cond
+     ((zero? (sub1 n)) (cdr lat))   ;;(zero? (sub1 n)) can changed by (one? n)
+     (else (cons (car lat) (rempick (sub1 n) (cdr lat)))))))
+#+END_SRC
+** no-nums
+(non-nums lat)
+#+BEGIN_SRC
+(define no-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) (quote ()))
+     (else (cond
+            ((number? (car lat)) (no-nums (cdr lat)))
+            (else (cons (car lat) (no-nums (cdr lat)))))))))
+#+END_SRC
+** all-nums
+(all-nums lat)
+#+BEGIN_SRC
+(define all-nums
+  (lambda (lat)
+    (cond
+     ((null? lat) (quote ()))
+     (else (cond
+            ((number? (car lat)) (cons (car lat) (all-nums (cdr lat))))
+            (else (all-nums (cdr lat))))))))
+#+END_SRC
+** eqan?
+(eqan? a1 a2)
+#+BEGIN_SRC
+(define eqan?
+  (lambda (a1 a2)
+    (cond
+     ((and (number? a1) (number? a2)) (= a1 a2))
+     ((or (number? a1) (number? a2)) #f)
+     (else (eq? a1 a2)))))
+#+END_SRC
+** occur
+(occur a lat)
+#+BEGIN_SRC
+(define occur
+  (lambda (a lat)
+    (cond
+     ((null? lat) 0)
+     (else
+      (cond
+       ((eq? (car lat) a) (add1 (occur a (cdr lat))))
+       (else (occur a (cdr lat))))))))
+#+END_SRC
+** one?
+(one? n)
+#+BEGIN_SRC
+(define one?
+  (lambda (n)
+    (cond
+     ((zero? n) #f)
+     (else (zero? (sub1 n))))))
+#+END_SRC
+#+BEGIN_SRC
+(define one?
+  (lambda (n)
+      (= n 1)))
+#+END_SRC
+* chapter 5
+** rember*
+(rember* a l)
+#+BEGIN_SRC
+(define rember*
+  (lambda (a l)
+    (cond
+     ((null? l) (quote ()))
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) a)
+        (rember* a (cdr l)))
+       (else (cons (car l) (rember* a (cdr l)))))
+      (else (cons (rember* a (car l)) (rember* a (cdr l))))))))
+#+END_SRC
+** insertR*
+(insertR* new old l)
+#+BEGIN_SRC
+(define insertR*
+  (lambda (new old l)
+    (cond
+     ((null? l) (quote ()))
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) old)
+        (cons old (cons new (insertR* new old (cdr l)))))
+       (else (cons (car l) (insertR* new old (cdr l)))))
+      (else (cons (insertR* new old (car l)) (insertR* new old (cdr l))))))))
+#+END_SRC
+** tips
+*** first
+when recurring a list of atoms, lat, ask
+(null? lat) and else
+when recurring a number, n, ask
+(zero? n) and else
+when recurring a list of S-expression, l, ask
+(null? l), (atom? (car l)) and else
+*** second
+when using cdr, test termination with null?
+when using sub1, test termination with zero?
+** *-functions
+work on lists that
+empty
+an atom consed onto a list
+a list consed onto a list
+** occur*
+(occur* a l)
+#+BEGIN_SRC
+(define occur*
+  (lambda (a l)
+    (cond
+     ((null? l) 0)
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) a)
+        (add1 (occur* (cdr l))))
+       (else (occur* (cdr l))))
+      (else (+ (occur* (car l)) (occur*` (cdr l))))))))
+#+END_SRC
+** subst*
+(subst* new old l)
+#+BEGIN_SRC
+(define subst*
+  (lambda (new old l)
+    (cond
+     ((null? l) (quote ()))
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) old)
+        (cons new (subst* new old (cdr l))))
+       (else (cons (car l) (subst* new old (cdr l)))))
+      (else (cons (subst* new old (car l)) (subst* new old (cdr l)))))))))
+#+END_SRC
+** insertL*
+(insertL* new old l)
+#+BEGIN_SRC
+(define insertL*
+  (lambda (new old l)
+    (cond
+     ((null? l) (quote ()))
+     ((atom? (car l))
+      (cond
+       ((eq? (car l) old)
+        (cons new (insertL* new old l)))
+       (else (cons (car l) (insertL* new old (cdr l)))))
+      (else (cons (insertL* new old (car l)) (insertL* new old (cdr l)))))))))
+#+END_SRC
+** member*
+(member* a l)
+#+BEGIN_SRC
+(define member*
+  (lambda (a l)
+    (cond
+     ((null? l) #f)
+     ((atom? (car l))
+      (or (eq? (car l) a) (member* a (cdr l)))
+      (else (or (member* a (car l) (member* a (cdr l))))))))))
+#+END_SRC
+** leftmost
+(leftmost l)
+leftmost works on non-empty lists that don't contain empty lists
+#+BEGIN_SRC
+(define leftmost
+  (lambda (l)
+    (cond
+     ((atom? (car l)) (car l))
+     (else (leftmost car l))))))
+#+END_SRC
+** and
+(and ...)
+just like locic gate
+(and a b) = (cond (a b) (else #f))
+** eqlist?
+(eqlist? l1 l2)
+#+BEGIN_SRC
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+     ((and (null? l1) (null? l2)) #t)
+     ((or (null? l1) (null? l2)) #f)
+     ((and (atom? (car l1)) (atom? (car l2)))
+      ((and (eqan? (car l1) (car l2)))
+      ((or (atom? (car l1)) (atom? (car l2))) #f)
+       (eqlist? (cdr l1) (cdr l2))))
+     (else (and (eqlist? (car l1) (eqlist? (car l2))))
+           (eqlist? (cdr l1)) (eqlist? (cdr l2)))))))
+#+END_SRC
+#+BEGIN_SRC
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+     ((and (null? l1) (null? l2)) #t)
+     ((or (null? l1) (null? l2)) #f)
+     (else
+       (and (equal? (car l1) (car l2))
+         (eqlist? (cdr l1) (cdr l2)))))))
+#+END_SRC
+** equal?
+(equal? s1 s2)
+#+BEGIN_SRC
+(define equal?
+  (lambda (s1 s2)
+    (cond
+     ((and (atom? s1) (atom? s2))
+      (eqan? s1 s2))
+     (or((atom? s1) (atom? s2)) #f)
+     (else (eqlist? s1 s2))))))
+#+END_SRC
+** rember
+(rember s l)
+#+BEGIN_SRC
+(define rember
+  (lambda (s l)
+    (cond
+     ((null? l) (quote ()))
+     ((eqal? (car l) s) (cdr l))
+     (else (cons (car l) (rember s (cdr l))))))))
 #+END_SRC
