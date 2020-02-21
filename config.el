@@ -119,15 +119,12 @@
       magit-save-repository-buffers nil
       ;; Don't restore the wconf after quitting magit
       magit-inhibit-save-previous-winconf t
-      transient-values '((magit-commit "--gpg-sign=26B731327F3E3288")
-                         (magit-rebase "--autosquash" "--gpg-sign=26B731327F3E3288")
-                         (magit-pull "--rebase" "--gpg-sign=26B731327F3E3288"))
+      transient-values '((magit-commit "--gpg-sign=F3EA7A994411B2B9")
+                         (magit-rebase "--autosquash" "--gpg-sign=F3EA7A994411B2B9")
+                         (magit-pull "--rebase" "--gpg-sign=F3EA7A994411B2B9"))
       )
 
-;;alert
-(use-package alert
-  :load-path "~/projects/github/alert"
-  )
+
 
 ;;snails
 (use-package! snails
