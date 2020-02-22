@@ -5,6 +5,12 @@ vim ~/.xonshrc
 $PATH.append(p"/path/to/directory")
 source ~/.xonshrc
 #+END_SRC
+** set xonsh default shell
+#+BEGIN_SRC
+$ which xonsh  'add path to /etc/shells
+$ chsh -s /usr/bin/xonsh
+#+END_SRC
+if don't work just reboot
 * postgresql(https://github.com/malnvenshorn/OctoPrint-FilamentManager/wiki/Setup-PostgreSQL-on-Arch-Linux#configure-postgresql-for-local-network)
 ** postgresql install
 *** Install postgresql package:
@@ -285,6 +291,12 @@ https://github.com/manateelazycat/emacs-application-framework
 ** ssh-key and gpg
 https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
 https://help.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account
+in config.el change gpgkey
+#+BEGIN_SRC
+transient-values '((magit-commit "--gpg-sign=A814p&U$uI0$ ")
+                         (magit-rebase "--autosquash" "--gpg-sign=0E271AE90CF21E77")
+                         (magit-pull "--rebase" "--gpg-sign=0E271AE90CF21E77")
+#+END_SRC
 ** install a private local package
 put package in ~/.doom.d/lisp/my-private-package.el
 in ~/.doom.d/config.el
@@ -316,6 +328,17 @@ magit-push choose remote to push
 **github**
 
 compare and pull request
+#+END_SRC
+** git proxy
+in ~/.gitconfig
+#+BEGIN_SRC 
+[user]
+        name = aki
+        email = akikaede6@gmail.com
+[github]
+        user = akikaede6
+[http]
+        proxy = socks5://127.0.0.1:1092
 #+END_SRC
 * vim
 ** alternate the same word
@@ -369,3 +392,68 @@ compare and pull request
 (eshell "two")
 (completing-read "Enter a selection" '("item 1" "item 2" "a third item"))
 #+END_SRC
+* dolphin
+dbus-launch dolphin
+* gentoo install
+** boot manjaro into usb
+#+BEGIN_SRC
+$ sudo pacman-mirrors -i -c China -m rank
+$ sudo pacman -Syy
+$ sudo pacman -S vim tmux
+$ tmux new -s name
+#+END_SRC
+** file system
+#+BEGIN_SRC
+$ mkfs.vfat /dev/sda1
+$ mkfs.ext4 /dev/sda3
+$ mkswap /dev/sda2
+$ swapon /dev/sda2
+#+END_SRC
+** mount boot
+#+BEGIN_SRC
+$ mkdir /mnt/gentoo
+$ mount /dev/sda3 /mnt/gentoo
+#+END_SRC
+** install stage
+#+BEGIN_SRC
+$ cd /mnt/gentoo
+$ wget <link> 'mirror package
+$ tar vxpf stage3-amd64-20200208.tar.bz2 --xattrs-include='*.*' --numeric-owner
+$ vim /mnt/gentoo/etc/portage/make.conf
+#+END_SRC
+CPU_FLAGS_X86 is after emerge --sync
+#+BEGIN_SRC
+emerge --ask app-portage/cpuid2cpuflags
+cpuid2cpuflags #将输出值改入CPU_FLAGS_X86
+#+END_SRC
+#+BEGIN_SRC
+CFLAGS="-march=native -O2 -pipe"
+CXXFLAGS="${CFLAGS}"
+CPU_FLAGS_X86="aes avx avx2 fma3 mmx mmxext pclmul popcnt sse sse2 sse3 sse4_1 sse4_2 ssse3"
+MAKEOPTS="-j7"
+USE="-bindist -mysql"
+PORTDIR="/usr/portage"
+DISTDIR="${PORTDIR}/distfiles"
+PKGDIR="${PORTDIR}/packages"
+# GENTOO_MIRRORS="https://mirrors.tuna.tsinghua.edu.cn/gentoo/"
+GENTOO_MIRRORS="https://mirrors.ustc.edu.cn/gentoo/"
+EMERGE_DEFAULT_OPTS="--ask --verbose=y --keep-going --with-bdeps=y --load-average"
+# FEATURES="${FEATURES} -userpriv -usersandbox -sandbox"
+ACCEPT_KEYWORDS="~amd64"
+ACCEPT_LICENSE="*"
+# Language
+L10N="en-US zh-CN en zh"
+LINGUAS="en_US zh_CN en zh"
+VIDEO_CARDS="nvidia"
+#+END_SRC
+
+
+
+
+
+
+**
+导入终端输出进文件
+comman &> log
+gcc fail
+emerge -1O glibc
