@@ -1,0 +1,149 @@
+#+TITLE: manjaro document
+
+* xonsh
+** add path to xonsh
+#+BEGIN_SRC
+vim ~/.xonshrc
+$PATH.append(p"/path/to/directory")
+source ~/.xonshrc
+#+END_SRC
+** set xonsh default shell
+#+BEGIN_SRC
+$ which xonsh  'add path to /etc/shells
+$ chsh -s /usr/bin/xonsh
+#+END_SRC
+if don't work just reboot
+** .xonshrc
+#+BEGIN_SRC
+aliases["p"]='proxychains'
+#+END_SRC
+* proxychains
+** pip
+#+BEGIN_SRC
+pip install pysocks
+pip install <yourpacakge> --proxy socks5:127.0.0.1:1092
+#+END_SRC
+** git
+#+BEGIN_SRC
+$ cd ~/.gitconfig
+[user]
+        name = akikaede6
+        email = akikaede6@gmail.com
+[github]
+        user = akikaede6
+[http]
+        proxy = socks5://127.0.0.1:1092
+#+END_SRC
+** system
+#+BEGIN_SRC
+$ pacman -S proxychains
+$ vim /etc/proxychains.conf
+add socks5 127.0.0.1 1092
+#+END_SRC
+* doom
+** dependences
+#+BEGIN_SRC
+$ pacman -S aspell-en fcitx-im fcitx-configtool fcitx-rime librime cmake
+#+END_SRC
+** change doom font size
+#+BEGIN_SRC
+(setq doom-font (font-spec :family "monospace" :size (if (>(x-display-pixel-width )1920 )24 14)))
+#+END_SRC
+** doom sandbox
+#+BEGIN_SRC
+M-x: doom-sandbox(spc-h-d -> x)
+;; - vanilla Emacs (nothing loaded)         C-c C-c
+;; - Doom + modules - your private config   C-c C-p
+#+END_SRC
+** pyim install
+#+BEGIN_SRC
+**~/.emacs.d/init.el**
+active ;;chinese
+**command**
+doom upgrde
+config as: https://github.com/akikaede6/.doom.d/commit/cb897da6cac277799022d2a8990fb9de9eec39a6
+package-refresh
+#+END_SRC
+** doom doctor to find error
+#+BEGIN_SRC
+~/.emacs.d/.local/straight/build to check built packages with
+~/.emacs.d/.local/straight/repos
+#+END_SRC
+** org-protocol
+#+BEGIN_SRC
+add following:
+https://github.com/akikaede6/.doom.d/commit/29e4caf18ef5a044d61821716f9d91f438b2fd33
+**xonsh**
+emacsclient -n "org-protocol:///capture?url=http%3a%2f%2fduckduckgo%2ecom&title=DuckDuckGo"
+add this path as a new bookmark in chrome:
+javascript:location.href="org-protocol:///capture?url="+encodeURIComponent(location.href)+"&title="+encodeURIComponent(document.title||"[untitled page]")
+#+END_SRC
+** eaf
+https://github.com/manateelazycat/emacs-application-framework
+** ssh-key and gpg
+https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
+https://help.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account
+in config.el change gpgkey
+#+BEGIN_SRC
+transient-values '((magit-commit "--gpg-sign=A814p&U$uI0$ ")
+                         (magit-rebase "--autosquash" "--gpg-sign=0E271AE90CF21E77")
+                         (magit-pull "--rebase" "--gpg-sign=0E271AE90CF21E77")
+#+END_SRC
+** install a private local package
+put package in ~/.doom.d/lisp/my-private-package.el
+in ~/.doom.d/config.el
+#+BEGIN_SRC
+(load! "lisp/my-private-package")
+#+END_SRC
+** 字体乱码
+#+BEGIN_SRC
+$ proxychains emacs
+M-x all-the-icons-install-fonts
+#+END_SRC
+** librime https://manateelazycat.github.io/emacs/2019/09/12/make-rime-works-with-linux.html
+in ~/.xprofile
+#+BEGIN_SRC
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+#+END_SRC
+#+BEGIN_SRC
+$ git clone https://gitlab.com/liberime/liberime.git --depth=1
+$ cd liberime
+$ make liberime
+#+END_SRC
+in ~/.emacs.d/pyim/rime/default.custom.yaml
+#+BEGIN_SRC
+patch:
+  menu:
+    page_size: 100
+  schema_list:
+    - schema: luna_pinyin_simp
+#+END_SRC
+* github
+** pull request
+#+BEGIN_SRC
+**github**
+
+fork file to own repo
+
+git clone https://github.com/akikaede6/Black-RX
+
+**emacs**
+
+M-x
+
+magit-branch-create fix/cmake
+
+magit-checkout fix/cmake
+
+magit-stage-file select file name
+
+magit-commit  c  write commit message
+
+magit-push choose remote to push
+
+**github**
+
+compare and pull request
+#+END_SRC
