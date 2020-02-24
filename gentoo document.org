@@ -1,0 +1,83 @@
+#+TITLE: gentoo document
+
+* v2ray
+#+BEGIN_SRC
+$ git clone https://github.com/akikaede6/repo.git
+$ unzip v2ray-linux-64.zip
+#+END_SRC
+put
+https://raw.githubusercontent.com/v2ray/v2ray-core/master/release/verify/official_release.asc
+in v2ray.sig
+put v2ray/ in /etc/init.d
+#+BEGIN_SRC
+$ /etc/init.d/v2ray/v2ray start
+$ rc-update add v2ray default
+#+END_SRC
+* proxychains
+#+BEGIN_SRC
+$ emerge net-misc/proxychains
+$ vim /etc/proxychains.conf
+add
+sock5 127.0.0.1 1092
+#+END_SRC
+* nvidia
+download driver from homepage
+#+BEGIN_SRC
+$ wget http://us.download.nvidia.com/XFree86/Linux-x86_64/440.59/NVIDIA-Linux-x86_64-440.59.run
+$ emerge -unmerge x11-drives/nvidia-drivers
+$ modprobe -r nvidia-drm
+$ reboot
+$ chmod +x NVIDIA-Linux-x86_64-440.59.run
+$ ./NVIDIA-Linux-x86_64-440.59.run
+#+END_SRC
+* doom
+#+BEGIN_SRC
+$ git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+$ mkdir -p ~/.emacs.d/.local/straight/repos
+$ git clone -b develop https://github.com/raxod502/straight.el ~/.emacs.d/.local/straight/repos/straight.el
+#+END_SRC
+#+BEGIN_SRC
+$ git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+$ ~/.emacs.d/bin/doom install
+$ mkdir -p ~/.emacs.d/.local/straight/repos
+$ git clone -b develop https://github.com/raxod502/straight.el ~/.emacs.d/.local/straight/repos/straight.el
+
+#+END_SRC
+M-x all the icons install
+
+librime dependence
+#+BEGIN_SRC
+emerge app-dicts/aspell-en
+emerge app-i18n/fcitx-rime
+emerge app-i18n/fcitx-configtool
+emerge app-i18n/fcitx-rime
+emerge app-i18n/librime
+emerge dev-util/cmake
+#+END_SRC
+* font
+#+BEGIN_SRC
+$ mkdir -p ~/.local/share/fonts
+$ cp ~/Downloads/Inconsolata.otf ~/.local/share/fonts
+$ wget https://github.com/be5invis/Sarasa-Gothic/releases/download/v0.10.2/sarasa-gothic-ttf-0.10.2.7z
+$ cp ~/Downloads/sarasa/sarasa-term-j-extralight.ttf /usr/share/fonts
+$ cp ~/Downloads/sarasa/sarasa-term-j-bold.ttf/ /usr/local/share/fonts
+#+END_SRC
+* emacs
+#+BEGIN_SRC
+git clone https://github.com/raxod502/emacs
+./autogen.sh
+./config --with-modules --with-mailutils
+make
+make install
+doom refresh
+doom update
+#+END_SRC
+* kill process
+#+BEGIN_SRC
+$ ps -e  | grep process
+$ kill number
+#+END_SRC
+* set fish default
+#+BEGIN_SRC
+$ chsh -s $(which fish)
+#+END_SRC
