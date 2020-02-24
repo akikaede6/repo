@@ -89,3 +89,10 @@
   (
    :host github
    :repo "manateelazycat/emacs-application-framework"))
+
+;;pyim
+(package! pyim
+  :recipe
+  (
+   :host github
+   :repo "merrickluo/pyim"))
