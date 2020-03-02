@@ -1,5 +1,7 @@
 #+TITLE: gentoo document
 
+* installation
+
 * v2ray
 #+BEGIN_SRC
 $ git clone https://github.com/akikaede6/repo.git
@@ -47,12 +49,32 @@ M-x all the icons install
 
 librime dependence
 #+BEGIN_SRC
-emerge app-dicts/aspell-en
-emerge app-i18n/fcitx-rime
-emerge app-i18n/fcitx-configtool
-emerge app-i18n/fcitx-rime
-emerge app-i18n/librime
-emerge dev-util/cmake
+$ emerge app-dicts/aspell-en
+$ emerge app-i18n/fcitx-rime
+$ emerge app-i18n/fcitx-configtool
+$ emerge app-i18n/fcitx-rime
+$ emerge app-i18n/librime
+$ emerge dev-util/cmake
+#+END_SRC
+** rime
+in ~/.xprofile
+#+BEGIN_SRC
+$ export GTK_IM_MODULE=fcitx
+$ export QT_IM_MODULE=fcitx
+$ export XMODIFIERS="@im=fcitx"
+#+END_SRC
+#+BEGIN_SRC
+$ git clone https://gitlab.com/liberime/liberime.git --depth=1
+$ cd liberime
+$ make liberime
+#+END_SRC
+in ~/.emacs.d/rime/default.custom.yaml
+#+BEGIN_SRC
+patch:
+  menu:
+    page_size: 100
+  schema_list:
+    - schema: luna_pinyin_simp
 #+END_SRC
 * font
 #+BEGIN_SRC
@@ -77,7 +99,12 @@ doom update
 $ ps -e  | grep process
 $ kill number
 #+END_SRC
-* set fish default
+* fish
+** set fish default
 #+BEGIN_SRC
 $ chsh -s $(which fish)
+#+END_SRC
+** fish add path
+#+BEGIN_SRC
+$ set -gx PATH $PATH <path>
 #+END_SRC

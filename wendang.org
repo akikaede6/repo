@@ -457,3 +457,10 @@ VIDEO_CARDS="nvidia"
 comman &> log
 gcc fail
 emerge -1O glibc
+* v2ray
+#+BEGIN_SRC 
+$ sudo pacman -S v2ray
+$ sudo vim /etc/v2ray/config.json
+$ sudo systemctl start v2ray.service
+$ sudo systemctl enable v2ray.service
+#+END_SRC
