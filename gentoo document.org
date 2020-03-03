@@ -108,4 +108,4 @@ $ chsh -s $(which fish)
 #+BEGIN_SRC
 $ set -gx PATH $PATH <path>
 #+END_SRC
-why ssh failed
+push

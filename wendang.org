@@ -304,6 +304,7 @@ in ~/.doom.d/config.el
 (load! "lisp/my-private-package")
 #+END_SRC
 * github
+** pr
 #+BEGIN_SRC
 **github**
 
@@ -339,6 +340,10 @@ in ~/.gitconfig
         user = akikaede6
 [http]
         proxy = socks5://127.0.0.1:1092
+#+END_SRC
+** git remote
+#+BEGIN_SRC
+git remote set-url origin git@github.com:name/repo.git
 #+END_SRC
 * vim
 ** alternate the same word
