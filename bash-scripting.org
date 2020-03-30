@@ -1,0 +1,6 @@
+#+TITLE: Bash Scripting
+
+* echo
+echo "$(())"  #calculate
+** remove space
+echo ${1// /}
