@@ -1,0 +1,8 @@
+#+TITLE: Uos
+
+* vncs使用
+1.在终端运行ssh deepin@10.3.10.230
+2.安装并开启vnc：
+$ sudo apt-get install x11vnc
+$ sudo x11vnc -storepasswd deepin /etc/x11vnc.pass
+$ sudo x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.pass -shared -noxdamage -xrandr "resize" -rfbport 5900
