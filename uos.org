@@ -77,3 +77,26 @@ source ~/.profile
 #+END_SRC
 
 #+RESULTS:
+
+* rrk
+#+BEGIN_SRC bash
+准备工作桌面版：将维护底座接电源，接主板的jtag口，维护底座的网口直连维护机（自己的机器）
+       服务器版：直接将维护网口与维护机直连
+在维护机进行如下步骤：
+$ apt install openjdk-8-jdk openjdk-8-jre   #安装java环境
+$ export maint=/opt/Maintance   #设置维护环境
+$ mkdir -pv $maint              #添加目录
+$ chown user.group $maint       #更改维护目录所有权，一般user和group是相同的
+$ tar xvf Maintance.tar.bz2 -C /opt   #解压维护脚本文件
+,**~/.bashrc**      #添加path
+export CLASSPATH=.:$maint/classes/2F.jar:$maint/classes/server_md.jar:$maint/classes/2F1.jar:$maint/classes/comm.jar
+export PATH=$PATH:$maint/bin:$maint/bin/2f:$maint/swich
+$ source ~/.bashrc
+$ which rrk    #确定生成了rrk可执行文件
+$ sudo ip address add dev eth0 192.168.1.5/24  #eth0根据ip a的设备名写，网段前三个根据维护网口的ip写
+$ nmap -sP 192.168.1.0/24  #扫描当前网段中维护网口的ip，直连的情况下应该能扫到两个，一个维护网口，一个维护机
+$ echo 192.168.1.11 bmc11 | sudo tee -a /etc/hosts #假设维护网口为192.168.1.11，bmc11为
+$ ping bmc11 #测试能否ping通维护网口
+$ for i in {0..15}; do echo === rrk begin $i ===; rrk bmcid $i; echo === rrk end $i ===; done  #其中的bmcid为ip的最后一位，此处为11
+#+END_SRC
+seafile->JDJG 事业部->技术部->知识库-学习-提升->付文强->rrk->6A 维护环境+Maintance.tar.bz2
