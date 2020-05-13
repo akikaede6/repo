@@ -1,36 +1,45 @@
 #+TITLE: Uos
 
-* vncs使用
-1.在终端运行ssh deepin@10.3.10.230
-2.安装并开启vnc：
+* vncs 使用
+1.在终端运行 ssh deepin@10.3.10.230
+2.安装并开启 vnc：
 $ sudo apt-get install x11vnc
 $ sudo x11vnc -storepasswd deepin /etc/x11vnc.pass
 $ sudo x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.pass -shared -noxdamage -xrandr "resize" -rfbport 5900
 * 转换 ip 为域名
 /etc/hosts ip 域名
 * 进程
+#+BEGIN_SRC
 journalctl -f
+#+END_SRC
 * 查找文件
+#+BEGIN_SRC
 find / -name filename.text   ##在全目录中查找文件 filename.text
 * 文件占内存情况
+#+BEGIN_SRC
 du -sh /* | sort -h
+#+END_SRC
 * 内网仓库
 deb http://10.2.10.135/uos-sw64/ eagle main contrib non-free
 deb http://10.2.10.135/uos-sw64-ppa/sp1/ eagle main contrib non-free
 首先 apt update
 * md5
-md5sum 包
-* 换 mate 桌面
 #+BEGIN_SRC
+md5sum package
+#+END_SRC
+* 换 mate 桌面
+#+BEGIN_SRC bash
 $ sudo apt install task-mate-desktop lightdm-gtk-greeter
 $ sudo sed 's/^greeter-session=lightdm-deepin-greeter/greeter-session=lightdm-gtk-greeter/g' /etc/lightdm/lightdm.conf -i  #换为mate
 $ sudo sed 's/^greeter-session=lightdm-gtk-greeter/greeter-session=lightdm-deepin-greeter/g' /etc/lightdm/lightdm.conf -i  #换回dde
 #+END_SRC
 * ssh alias
-~/.ssh/config
+#+BEGIN_SRC
+**~/.ssh/config**
 Host 230
      HostName 10.3.10.230
      User deepin
+#+END_SRC
 * 周报？
 ** 4.20
 samba vsftp（失败
@@ -58,3 +67,13 @@ ZF 一些用例
 测试报告完善
 ** 5.7
 bug 跟踪，2解决，2进行中，其中 1 服务器不同造成系统起不来，1正在解决
+** 5.11
+AK 测试  230 内核起不来  自定义服务器时间 bug
+* bash add path
+#+BEGIN_SRC bash
+**~/.profile**
+export PATH="$PATH:/path/to/"
+source ~/.profile
+#+END_SRC
+
+#+RESULTS:

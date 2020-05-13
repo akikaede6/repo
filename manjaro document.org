@@ -19,12 +19,12 @@ aliases["p"]='proxychains'
 #+END_SRC
 * proxychains
 ** pip
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 pip install pysocks
 pip install <yourpacakge> --proxy socks5:127.0.0.1:1092
 #+END_SRC
 ** git
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 $ cd ~/.gitconfig
 [user]
         name = akikaede6
@@ -35,28 +35,28 @@ $ cd ~/.gitconfig
         proxy = socks5://127.0.0.1:1092
 #+END_SRC
 ** system
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 $ pacman -S proxychains
 $ vim /etc/proxychains.conf
 add socks5 127.0.0.1 1092
 #+END_SRC
 * doom
 ** dependences
-#+BEGIN_SRC
-$ pacman -S aspell-en fcitx-im fcitx-configtool fcitx-rime librime cmake
+#+BEGIN_SRC bash
+$ sudo pacman -S aspell-en fcitx-im fcitx-configtool fcitx-rime librime cmake
 #+END_SRC
 ** change doom font size
-#+BEGIN_SRC
+#+BEGIN_SRC elisp
 (setq doom-font (font-spec :family "monospace" :size (if (>(x-display-pixel-width )1920 )24 14)))
 #+END_SRC
 ** doom sandbox
-#+BEGIN_SRC
+#+BEGIN_SRC elisp
 M-x: doom-sandbox(spc-h-d -> x)
 ;; - vanilla Emacs (nothing loaded)         C-c C-c
 ;; - Doom + modules - your private config   C-c C-p
 #+END_SRC
 ** pyim install
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 **~/.emacs.d/init.el**
 active ;;chinese
 **command**
@@ -64,11 +64,7 @@ doom upgrde
 config as: https://github.com/akikaede6/.doom.d/commit/cb897da6cac277799022d2a8990fb9de9eec39a6
 package-refresh
 #+END_SRC
-** doom doctor to find error
-#+BEGIN_SRC
-~/.emacs.d/.local/straight/build to check built packages with
-~/.emacs.d/.local/straight/repos
-#+END_SRC
+** doom doctor to find error #+BEGIN_SRC ~/.emacs.d/.local/straight/build to check built packages with ~/.emacs.d/.local/straight/repos #+END_SRC
 ** org-protocol
 #+BEGIN_SRC
 add following:
@@ -84,7 +80,7 @@ https://github.com/manateelazycat/emacs-application-framework
 https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh
 https://help.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account
 in config.el change gpgkey
-#+BEGIN_SRC
+#+BEGIN_SRC elisp
 transient-values '((magit-commit "--gpg-sign=A814p&U$uI0$ ")
                          (magit-rebase "--autosquash" "--gpg-sign=0E271AE90CF21E77")
                          (magit-pull "--rebase" "--gpg-sign=0E271AE90CF21E77")
@@ -92,11 +88,11 @@ transient-values '((magit-commit "--gpg-sign=A814p&U$uI0$ ")
 ** install a private local package
 put package in ~/.doom.d/lisp/my-private-package.el
 in ~/.doom.d/config.el
-#+BEGIN_SRC
+#+BEGIN_SRC elisp
 (load! "lisp/my-private-package")
 #+END_SRC
 ** 字体乱码
-#+BEGIN_SRC
+#+BEGIN_SRC bash
 $ proxychains emacs
 M-x all-the-icons-install-fonts
 #+END_SRC
