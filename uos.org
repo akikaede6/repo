@@ -100,3 +100,7 @@ $ ping bmc11 #测试能否ping通维护网口
 $ for i in {0..15}; do echo === rrk begin $i ===; rrk bmcid $i; echo === rrk end $i ===; done  #其中的bmcid为ip的最后一位，此处为11
 #+END_SRC
 seafile->JDJG 事业部->技术部->知识库-学习-提升->付文强->rrk->6A 维护环境+Maintance.tar.bz2
+* 删除文件系统
+#+BEGIN_SRC
+sudo wipefs -a /dev/sda
+#+END_SRC
