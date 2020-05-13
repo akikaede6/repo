@@ -6,3 +6,55 @@
 $ sudo apt-get install x11vnc
 $ sudo x11vnc -storepasswd deepin /etc/x11vnc.pass
 $ sudo x11vnc -display :0 -auth /var/run/lightdm/root/:0 -forever -bg -o /var/log/x11vnc.log -rfbauth /etc/x11vnc.pass -shared -noxdamage -xrandr "resize" -rfbport 5900
+* 转换 ip 为域名
+/etc/hosts ip 域名
+* 进程
+journalctl -f
+* 查找文件
+find / -name filename.text   ##在全目录中查找文件 filename.text
+* 文件占内存情况
+du -sh /* | sort -h
+* 内网仓库
+deb http://10.2.10.135/uos-sw64/ eagle main contrib non-free
+deb http://10.2.10.135/uos-sw64-ppa/sp1/ eagle main contrib non-free
+首先 apt update
+* md5
+md5sum 包
+* 换 mate 桌面
+#+BEGIN_SRC
+$ sudo apt install task-mate-desktop lightdm-gtk-greeter
+$ sudo sed 's/^greeter-session=lightdm-deepin-greeter/greeter-session=lightdm-gtk-greeter/g' /etc/lightdm/lightdm.conf -i  #换为mate
+$ sudo sed 's/^greeter-session=lightdm-gtk-greeter/greeter-session=lightdm-deepin-greeter/g' /etc/lightdm/lightdm.conf -i  #换回dde
+#+END_SRC
+* ssh alias
+~/.ssh/config
+Host 230
+     HostName 10.3.10.230
+     User deepin
+* 周报？
+** 4.20
+samba vsftp（失败
+** 4.21
+vnc dns vsftp（失败
+** 4.22
+nfs ldap
+** 4.23
+squid 系统运维工具 ipmi  乐新提的 bug 复现 服务应用测试中分散的用例确认 B7 版本 bug 复现
+ZF 一些用例
+** 4.24
+按 bug 规范修改 bug 性能测试 2 条   bug 提单规范研究
+** 4.26
+之前的 bug 情况跟进
+登陆启动器 深度应用 V20
+** 4.27
+深度应用 V20 结束，HI-DPI 模块待确认  文件归档
+** 4.28
+第三方应用 装方正系统
+** 4,29
+控制中心->个性化 键盘和鼠标 声音 回归测试
+** 4,30
+写测试报告
+** 5.6
+测试报告完善
+** 5.7
+bug 跟踪，2解决，2进行中，其中 1 服务器不同造成系统起不来，1正在解决
