@@ -69,7 +69,45 @@ ZF 一些用例
 bug 跟踪，2解决，2进行中，其中 1 服务器不同造成系统起不来，1正在解决
 ** 5.11
 AK 测试  230 内核起不来  自定义服务器时间 bug
-* bash add path
+
+
+
+
+
+* 更换内核
+#+BEGIN_SRC
+$ dpkg -i *.package
+$ ls /boot/ -lt  记录最新的内核文件和init文件
+$ vim /boot/grub/grub.cfg
+将原有的
+menuentry 'SUNWAY UOS server' --class gnu-linux --class gnu --class os{
+echo "装载中，请耐心等待……"
+set boot=(${root})/boot/
+linux.boot ${boot}/initrd.img-4.19.90-sunway-server-aere
+echo "装载 boot.img 成功"
+linux.console ${boot}/bootloader.bin
+cho "装载 bootloader.bin 成功"
+linux.vmlinux ${boot}/vmlinuz-4.19.90-sunway-server-aere  notc root=UUID=56cff76d-4d14-4771-b4b8-178c8cd6fefa loglevel=0 quiet
+echo "装载 vmlinux1 成功"
+echo "开始执行……"
+boot
+}
+重新复制一份，将配置中的initrd和vmliuz改为新内核
+默认启动0是第一份配置，1为第二份配置
+#+END_SRC
+* 换 mate 桌面
+#+BEGIN_SRC bash
+$ sudo apt install task-mate-desktop lightdm-gtk-greeter
+$ sudo sed 's/^greeter-session=lightdm-deepin-greeter/greeter-session=lightdm-gtk-greeter/g' /etc/lightdm/lightdm.conf -i  #换为mate
+$ sudo sed 's/^greeter-session=lightdm-gtk-greeter/greeter-session=lightdm-deepin-greeter/g' /etc/lightdm/lightdm.conf -i  #换回dde
+#+END_SRC
+* ssh alias
+#+BEGIN_SRC
+**~/.ssh/config**
+Host 230
+     HostName 10.3.10.230
+     User deepin
+#+END_SRC
 #+BEGIN_SRC bash
 **~/.profile**
 export PATH="$PATH:/path/to/"
