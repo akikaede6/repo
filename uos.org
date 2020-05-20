@@ -142,3 +142,8 @@ seafile->JDJG 事业部->技术部->知识库-学习-提升->付文强->rrk->6A 
 #+BEGIN_SRC
 sudo wipefs -a /dev/sda
 #+END_SRC
+
+* 解释命令
+https://explainshell.com/
+* dde log
+**~/.cache/deepin**
