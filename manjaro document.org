@@ -147,3 +147,22 @@ magit-push choose remote to push
 
 compare and pull request
 #+END_SRC
+
+* rime
+#+BEGIN_SRC
+sudo pacman -S ibus-rime ibus
+ibus-setup
+**~/.profile**
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+ibus-daemon -x -d
+**~/.bashrc**
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+wget https://github.com/Mogeko/blog-commits/releases/download/031/rime-dict.zip
+cp rime-dict.zip ~/.config/ibus/rime
+unzip rime-dict.zip
+ibus-setup  #添加rime输入法
+#+END_SRC
