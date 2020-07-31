@@ -1,0 +1,6 @@
+#+TITLE: Study
+
+* c
+** 佔位符
+%c -> char
+%d -> int
