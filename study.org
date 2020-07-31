@@ -2,5 +2,12 @@
 
 * c
 ** 佔位符
-%c -> char
-%d -> int
+| 數據類型及顯示        | 佔位符 | 佔位符來源     |
+| 有符號整數型          | %d 或%i | digit 和 integer |
+| 字符型                | %c     | charater       |
+| 無符號整數型          | %u     | unsigned       |
+| 浮點數                | %f 或%F | float          |
+| 科學計數法浮點數      | %e 或%E | exponent       |
+| 實數（不顯示無意義 0） | %g 或%G |                |
+| 內存地址              | %p     | pointer        |
+| 字符串                | %s     | string         |
