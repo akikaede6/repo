@@ -243,3 +243,8 @@ patch:
   translator/dictionary:  zhwiki
 #+END_SRC
 restart fcitx5
+* wps-zh
+#+BEGIN_SRC
+yay -S wps-office
+yay -S wps-office-mui-zh-cn
+#+END_SRC
