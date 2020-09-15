@@ -13,3 +13,4 @@
 ** 23:33 日記
 *** TODO emacs error
 ~void signal.\h~ rm -rf ~/.emacs.d/.local/cache
+=change git http to ssh= magit remote->config->remote orgin url->add ssh url
