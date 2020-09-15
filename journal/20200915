@@ -1,0 +1,15 @@
+* Tuesday, 09/15/2020
+** 22:07 日記
+*** TODO org-journal
+- ~space s s~ 文件中查找內容
+- ~space t F~ 全屏模式
+- ~space s p~ 在project中查找文件內容
+- ~c-h v~ 查詢變量信息
+- ~v f atom~ 選擇到atom字母上
+- ~g s /~ avy選擇跳轉的字母
+- 將org－xx變成一個單詞
+- ~c-h m~ 當前mode
+- (add-hook! 'ruby-mode-hook (modify-syntax-entry ?- "w")) 可在某mode中更改e到
+** 23:33 日記
+*** TODO emacs error
+~void signal.\h~ rm -rf ~/.emacs.d/.local/cache
